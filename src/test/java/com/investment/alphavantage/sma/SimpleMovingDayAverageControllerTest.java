@@ -47,7 +47,7 @@ public class SimpleMovingDayAverageControllerTest {
 
     @Test
     public void shouldNotReturnNullFromSMAController() {
-        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=OIEJUIR7ILW8SSZP",
+        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=ALPHAVANTAGE_API_KEY",
                 String.class)).thenReturn(ResponseEntity.ok(new Gson().toJson(SimpleMovingDayAverageData.builder().build())));
 
         SimpleMovingDayAverageData result = smaController.retrieveSimpleMovingDayAverage("IBM");
@@ -67,7 +67,7 @@ public class SimpleMovingDayAverageControllerTest {
                 "7: Time Zone\":\"US/Eastern\"}," +
                 "\"Technical Analysis: SMA\":{\"2021-04-09\":{\"SMA\":\"123\"}}}";
 
-        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=OIEJUIR7ILW8SSZP",
+        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=ALPHAVANTAGE_API_KEY",
                 String.class)).thenReturn(ResponseEntity.ok(jsonResponse));
 
         SimpleMovingDayAverageData result = smaController.retrieveSimpleMovingDayAverage("IBM");
@@ -84,12 +84,12 @@ public class SimpleMovingDayAverageControllerTest {
     public void shouldRetrieveDataDirectlyFromAlphaVantageViaRestTemplate() {
         SimpleMovingDayAverageData smaData = SimpleMovingDayAverageData.builder().build();
 
-        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=OIEJUIR7ILW8SSZP",
+        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=ALPHAVANTAGE_API_KEY",
                 String.class)).thenReturn(ResponseEntity.ok(new Gson().toJson(smaData)));
 
         smaController.retrieveSimpleMovingDayAverage("IBM");
         verify(restTemplate).getForEntity(
-                "https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=OIEJUIR7ILW8SSZP",
+                "https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=ALPHAVANTAGE_API_KEY",
                 String.class);
     }
 
@@ -105,7 +105,7 @@ public class SimpleMovingDayAverageControllerTest {
                 "7: Time Zone\":\"US/Eastern\"}," +
                 "\"Technical Analysis: SMA\":{\"2021-04-09\":{\"SMA\":\"999\"}}}";
 
-        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=OIEJUIR7ILW8SSZP",
+        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=ALPHAVANTAGE_API_KEY",
                 String.class)).thenReturn(ResponseEntity.ok(jsonResponse));
 
         fixedClock = Clock.fixed(LOCAL_DATE.atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());

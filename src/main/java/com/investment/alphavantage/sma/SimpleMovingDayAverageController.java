@@ -41,7 +41,7 @@ public class SimpleMovingDayAverageController {
     public SimpleMovingDayAverageData retrieveSimpleMovingDayAverage(@RequestParam String ticker) {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(
                 "https://www.alphavantage.co/query?function=SMA&symbol=" + ticker + "&interval=weekly&time_period=200" +
-                        "&series_type=open&apikey=OIEJUIR7ILW8SSZP", String.class);
+                        "&series_type=open&apikey=ALPHAVANTAGE_API_KEY", String.class);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(SimpleMovingDayAverageData.class, new SimpleMovingDayAverageDeserializer(clock));
         Gson customGson = gsonBuilder.create();

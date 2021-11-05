@@ -54,7 +54,7 @@ public class SimpleMovingDayAverageIntegrationTest {
 
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200" +
-                        "&series_type=open&apikey=OIEJUIR7ILW8SSZP")))
+                        "&series_type=open&apikey=ALPHAVANTAGE_API_KEY")))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
 
         SimpleMovingDayAverageData result = controller.retrieveSimpleMovingDayAverage(symbol);
@@ -82,7 +82,7 @@ public class SimpleMovingDayAverageIntegrationTest {
 
         mockServer.expect(ExpectedCount.once(),
                 requestTo(new URI("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200" +
-                        "&series_type=open&apikey=OIEJUIR7ILW8SSZP")))
+                        "&series_type=open&apikey=ALPHAVANTAGE_API_KEY")))
                 .andRespond(withSuccess(jsonResponse, MediaType.APPLICATION_JSON));
 
         SimpleMovingDayAverageData result1 = controller.retrieveSimpleMovingDayAverage(symbol);
