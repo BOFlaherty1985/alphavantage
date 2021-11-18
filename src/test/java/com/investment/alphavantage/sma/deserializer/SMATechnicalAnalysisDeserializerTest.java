@@ -2,7 +2,7 @@ package com.investment.alphavantage.sma.deserializer;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.investment.alphavantage.sma.model.SmaData;
+import com.investment.alphavantageapi.model.sma.SmaData;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,10 +1,11 @@
 package com.investment.alphavantage.integration;
 
 import com.investment.alphavantage.sma.SimpleMovingDayAverageController;
-import com.investment.alphavantage.sma.model.MetaData;
-import com.investment.alphavantage.sma.model.SimpleMovingDayAverageData;
-import com.investment.alphavantage.sma.model.SmaData;
-import com.investment.alphavantage.sma.model.TechnicalAnalysis;
+
+import com.investment.alphavantageapi.model.sma.MetaData;
+import com.investment.alphavantageapi.model.sma.SimpleMovingDayAverageData;
+import com.investment.alphavantageapi.model.sma.SmaData;
+import com.investment.alphavantageapi.model.sma.TechnicalAnalysis;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

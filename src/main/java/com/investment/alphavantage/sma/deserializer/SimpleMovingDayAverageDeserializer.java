@@ -1,10 +1,11 @@
 package com.investment.alphavantage.sma.deserializer;
 
 import com.google.gson.*;
-import com.investment.alphavantage.sma.model.MetaData;
-import com.investment.alphavantage.sma.model.SimpleMovingDayAverageData;
-import com.investment.alphavantage.sma.model.SmaData;
-import com.investment.alphavantage.sma.model.TechnicalAnalysis;
+
+import com.investment.alphavantageapi.model.sma.MetaData;
+import com.investment.alphavantageapi.model.sma.SimpleMovingDayAverageData;
+import com.investment.alphavantageapi.model.sma.SmaData;
+import com.investment.alphavantageapi.model.sma.TechnicalAnalysis;
 
 import java.lang.reflect.Type;
 import java.time.Clock;

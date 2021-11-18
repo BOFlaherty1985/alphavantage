@@ -3,7 +3,7 @@ package com.investment.alphavantage.sma;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.investment.alphavantage.sma.deserializer.SimpleMovingDayAverageDeserializer;
-import com.investment.alphavantage.sma.model.SimpleMovingDayAverageData;
+import com.investment.alphavantageapi.model.sma.SimpleMovingDayAverageData;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Clock;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ConcurrentMap;
 
 @RestController

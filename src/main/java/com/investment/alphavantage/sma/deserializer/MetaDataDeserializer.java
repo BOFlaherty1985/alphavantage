@@ -1,7 +1,7 @@
 package com.investment.alphavantage.sma.deserializer;
 
 import com.google.gson.JsonObject;
-import com.investment.alphavantage.sma.model.MetaData;
+import com.investment.alphavantageapi.model.sma.MetaData;
 
 import java.util.Optional;
 

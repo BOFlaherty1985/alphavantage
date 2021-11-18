@@ -2,7 +2,7 @@ package com.investment.alphavantage.sma.deserializer;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.investment.alphavantage.sma.model.SmaData;
+import com.investment.alphavantageapi.model.sma.SmaData;
 
 import java.time.Clock;
 import java.time.DayOfWeek;

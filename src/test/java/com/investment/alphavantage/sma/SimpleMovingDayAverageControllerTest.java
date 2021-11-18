@@ -1,8 +1,8 @@
 package com.investment.alphavantage.sma;
 
 import com.google.gson.Gson;
-import com.investment.alphavantage.sma.model.SimpleMovingDayAverageData;
-import com.investment.alphavantage.sma.model.SmaData;
+import com.investment.alphavantageapi.model.sma.SimpleMovingDayAverageData;
+import com.investment.alphavantageapi.model.sma.SmaData;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

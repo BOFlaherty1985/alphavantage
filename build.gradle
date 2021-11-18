@@ -16,6 +16,7 @@ configurations {
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
@@ -27,12 +28,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation group: 'com.investment', name: 'alpha-vantage-api', version: '1.0'
 	compile 'com.google.code.gson:gson:2.8.6'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'junit:junit:4.12'
     implementation 'junit:junit:4.12'
+	testCompile group: 'com.investment', name: 'alpha-vantage-api', version: '1.0'
 
 }
 
