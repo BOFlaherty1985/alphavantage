@@ -5,11 +5,12 @@ import com.investment.alphavantageapi.model.company.CompanyOverviewData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-@Controller
+@RestController
 public class CompanyOverviewController {
 
     private RestTemplate restTemplate;
@@ -21,8 +22,8 @@ public class CompanyOverviewController {
         this.apiKey = apiKey;
     }
 
-    @GetMapping(value = "/test")
-    public CompanyOverviewData retrieveCompanyOverviewDataFor(String ticker) {
+    @GetMapping(value = "/companyOverview")
+    public CompanyOverviewData retrieveCompanyOverviewDataFor(@RequestParam String ticker) {
         if (ticker == null || ticker.isEmpty()) {
             throw new IllegalArgumentException();
         }
