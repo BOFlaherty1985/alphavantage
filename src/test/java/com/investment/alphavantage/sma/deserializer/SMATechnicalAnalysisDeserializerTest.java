@@ -32,8 +32,8 @@ public class SMATechnicalAnalysisDeserializerTest {
     @Before
     public void setup() {
         fixedClock = Clock.fixed(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
-        doReturn(fixedClock.instant()).when(clock).instant();
-        doReturn(fixedClock.getZone()).when(clock).getZone();
+//        doReturn(fixedClock.instant()).when(clock).instant();
+//        doReturn(fixedClock.getZone()).when(clock).getZone();
     }
 
     @Test
@@ -44,14 +44,24 @@ public class SMATechnicalAnalysisDeserializerTest {
         assertTrue(result.isEmpty());
     }
 
+    private final static LocalDate LOCAL_DATE = LocalDate.of(2021, 04, 9);
+
     @Test
     public void shouldDeserializeSimpleMovingDayAverageTechnicalAnalysisJsonObject() {
-        String date = "2021-04-09";
+        // given
+        String date = "2021-04-08";
         String simpleMovingDayAverage = "124.0520";
         String jsonString = "{\"Technical Analysis: SMA\":{\"" + date + "\":{\"SMA\":\"" + simpleMovingDayAverage + "\"}}}";
         JsonObject technicalAnalysisJson = new JsonParser().parse(jsonString).getAsJsonObject();
 
+        fixedClock = Clock.fixed(LOCAL_DATE.atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
+        doReturn(fixedClock.instant()).when(clock).instant();
+        doReturn(fixedClock.getZone()).when(clock).getZone();
+
+        // when
         List<SmaData> result = smaTechnicalAnalysisDeserializer.getSimpleMovingDayAverageData(technicalAnalysisJson);
+
+        // then
         assertNotNull(result);
         SmaData smaData = result.stream().findFirst().get();
         assertEquals(date, smaData.getDate());

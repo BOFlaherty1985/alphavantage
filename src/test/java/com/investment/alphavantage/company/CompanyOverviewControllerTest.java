@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
@@ -27,17 +26,6 @@ public class CompanyOverviewControllerTest {
     private CompanyOverviewController companyOverviewController =
             new CompanyOverviewController(restTemplate, "ALPHAVANTAGE_API_KEY");
 
-    @Test
-    public void shouldReturnCompanyOverviewDataObject() {
-        // given
-        String ticker = "IBM";
-
-        // when
-        CompanyOverviewData result = companyOverviewController.retrieveCompanyOverviewDataFor(ticker);
-
-        // then
-        assertNotNull(result);
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionWhenTickerIsNull() {
@@ -59,23 +47,9 @@ public class CompanyOverviewControllerTest {
     }
 
     @Test
-    public void shouldMakeCompanyOverviewRestTemplateCall() {
-        // given
-        String ticker = "IBM";
-
-        // when
-        companyOverviewController.retrieveCompanyOverviewDataFor(ticker);
-
-        // then
-        verify(restTemplate).getForEntity("https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=ALPHAVANTAGE_API_KEY",
-                String.class);
-    }
-
-    @Test
     public void shouldReturnCompanyOverviewDetails() {
         // given
         String ticker = "IBM";
-
         String name = "International Business Machines Corporation";
         String description = "Blah Blah Blah";
         String exchange = "NYSE";
@@ -97,6 +71,8 @@ public class CompanyOverviewControllerTest {
         CompanyOverviewData result = companyOverviewController.retrieveCompanyOverviewDataFor(ticker);
 
         // then
+        verify(restTemplate).getForEntity("https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=ALPHAVANTAGE_API_KEY",
+                String.class);
         assertEquals(ticker, result.getSymbol());
         assertEquals(name, result.getName());
         assertEquals(description, result.getDescription());
