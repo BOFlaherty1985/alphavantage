@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -80,5 +79,4 @@ public class CompanyOverviewControllerTest {
         assertEquals(exchange, result.getExchange());
         assertEquals(peRatio, result.getPeRatio());
     }
-
 }

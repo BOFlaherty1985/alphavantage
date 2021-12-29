@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +25,15 @@ public class SimpleMovingDayAverageController {
     private RestTemplate restTemplate;
     private Clock clock;
     private CacheManager cacheManager;
+    private Environment environment;
 
     @Autowired
-    public SimpleMovingDayAverageController(RestTemplate restTemplate, Clock clock, CacheManager cacheManager) {
+    public SimpleMovingDayAverageController(RestTemplate restTemplate, Clock clock,
+                                            CacheManager cacheManager, Environment environment) {
         this.restTemplate = restTemplate;
         this.clock = clock;
         this.cacheManager = cacheManager;
+        this.environment = environment;
     }
 
     /*
@@ -38,9 +42,10 @@ public class SimpleMovingDayAverageController {
     @GetMapping("/simpleMovingDayAverage")
     @Cacheable(value = "simpleMovingDayAverages", key = "#ticker")
     public SimpleMovingDayAverageData retrieveSimpleMovingDayAverage(@RequestParam String ticker) {
+        String apiKey = environment.getProperty("alphavantage.api.key");
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(
                 "https://www.alphavantage.co/query?function=SMA&symbol=" + ticker + "&interval=weekly&time_period=200" +
-                        "&series_type=open&apikey=ALPHAVANTAGE_API_KEY", String.class);
+                        "&series_type=open&apikey=" + apiKey, String.class);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(SimpleMovingDayAverageData.class, new SimpleMovingDayAverageDeserializer(clock));
         Gson customGson = gsonBuilder.create();

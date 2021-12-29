@@ -74,6 +74,7 @@ public class SimpleMovingDayAverageIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void shouldCacheResponse() throws URISyntaxException {
         String symbol = "IBM";
 

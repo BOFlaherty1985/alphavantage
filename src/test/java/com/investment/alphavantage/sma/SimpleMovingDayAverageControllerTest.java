@@ -7,8 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Clock;
@@ -22,7 +23,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class) // SpringJUnit4Runner for Caching to work / test?
+@RunWith(SpringRunner.class)
 public class SimpleMovingDayAverageControllerTest {
 
     private static final DateTimeFormatter JSON_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -34,15 +35,20 @@ public class SimpleMovingDayAverageControllerTest {
     private RestTemplate restTemplate;
 
     @Mock
+    private Environment environment;
+
+    @Mock
     private Clock clock;
 
     private Clock fixedClock;
 
+    private String API_KEY;
+
     @Before
     public void setup() {
         fixedClock = Clock.fixed(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
-//        doReturn(fixedClock.instant()).when(clock).instant();
-//        doReturn(fixedClock.getZone()).when(clock).getZone();
+        when(environment.getProperty("alphavantage.api.key")).thenReturn("ALPHAVANTAGE_API_KEY");
+        API_KEY = environment.getProperty("alphavantage.api.key");
     }
 
 //    @Test
@@ -68,7 +74,8 @@ public class SimpleMovingDayAverageControllerTest {
                 "7: Time Zone\":\"US/Eastern\"}," +
                 "\"Technical Analysis: SMA\":{\"2021-04-09\":{\"SMA\":\"123\"}}}";
 
-        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=ALPHAVANTAGE_API_KEY",
+        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly" +
+                        "&time_period=200&series_type=open&apikey=" + API_KEY,
                 String.class)).thenReturn(ResponseEntity.ok(jsonResponse));
 
         fixedClock = Clock.fixed(LOCAL_DATE.atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
@@ -113,7 +120,8 @@ public class SimpleMovingDayAverageControllerTest {
                 "7: Time Zone\":\"US/Eastern\"}," +
                 "\"Technical Analysis: SMA\":{\"2021-04-09\":{\"SMA\":\"999\"}}}";
 
-        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly&time_period=200&series_type=open&apikey=ALPHAVANTAGE_API_KEY",
+        when(restTemplate.getForEntity("https://www.alphavantage.co/query?function=SMA&symbol=IBM&interval=weekly" +
+                        "&time_period=200&series_type=open&apikey=" + API_KEY,
                 String.class)).thenReturn(ResponseEntity.ok(jsonResponse));
 
         fixedClock = Clock.fixed(LOCAL_DATE.atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
